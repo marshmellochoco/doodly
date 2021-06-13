@@ -25,13 +25,9 @@ const IndexPage = ({ data }) => {
     return (
         <Layout>
             <CardItems>
-                <Card node={node[0]} />
-                <Card node={node[0]} />
-                <Card node={node[0]} />
-                <Card node={node[0]} />
-                <Card node={node[0]} />
-                <Card node={node[0]} />
-                <Card node={node[0]} />
+                {[0, 1, 2, 3, 4, 5, 6, 7].map((elem) => {
+                    return <Card node={node[0]} key={elem} />;
+                })}
             </CardItems>{" "}
         </Layout>
     );
@@ -39,6 +35,7 @@ const IndexPage = ({ data }) => {
 
 export default IndexPage;
 
+// query
 export const query = graphql`
     query {
         allContentfulDoodle {

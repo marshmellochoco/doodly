@@ -1,8 +1,11 @@
 import styled from "@emotion/styled";
 import { Link } from "gatsby";
 import React from "react";
-import icon from "../images/icon.png";
 
+import icon from "../images/icon.png";
+import CartIcon from "../images/cart.svg";
+
+// styles
 const Header = styled.header`
     position: absolute;
     top: 0;
@@ -39,6 +42,7 @@ const NavLinks = styled((props) => <Link {...props} />)`
     }
 `;
 
+// markup
 const Navbar = () => {
     return (
         <Header>
@@ -47,7 +51,9 @@ const Navbar = () => {
                     <NavIcon src={icon} />
                 </Link>
                 <NavItems>
-                    <NavLinks to="/">link 3</NavLinks>
+                    <NavLinks to="/cart">
+                        <img src={CartIcon} alt="Cart" />
+                    </NavLinks>
                 </NavItems>
             </Nav>
         </Header>

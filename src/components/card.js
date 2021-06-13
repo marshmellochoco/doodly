@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { Link } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
+// styles
 const CardWrapper = styled((props) => <Link {...props} />)`
     width: 18rem;
     margin: auto;
@@ -43,6 +44,7 @@ const CardFooter = styled.p`
     padding: 0 1rem;
 `;
 
+// markup
 const Card = ({ node }) => {
     return (
         <CardWrapper to={"/doodle/" + node.slug}>
