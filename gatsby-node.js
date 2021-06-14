@@ -3,19 +3,17 @@ const path = require("path");
 exports.createPages = async ({ graphql, actions }) => {
     const { data } = await graphql(`
         query {
-            allContentfulDoodle {
-                nodes {
-                    slug
-                }
+            allStripePrice {
+                distinct(field: product___id)
             }
         }
     `);
 
-    data.allContentfulDoodle.nodes.forEach((node) => {
+    data.allStripePrice.distinct.forEach((id) => {
         actions.createPage({
-            path: "/doodle/" + node.slug,
+            path: "/doodle/" + id,
             component: path.resolve("./src/templates/doodles-template.js"),
-            context: { slug: node.slug },
+            context: { id: id },
         });
     });
 };

@@ -1,6 +1,5 @@
 import { graphql, Link } from "gatsby";
 import React from "react";
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import styled from "@emotion/styled";
 
 import BackIcon from "../images/arrow-left.svg";
@@ -28,6 +27,10 @@ const DoodlePreview = styled.div`
     @media (max-width: 768px) {
         width: 100%;
     }
+`;
+
+const DoodlePreviewImage = styled.img`
+    width: 100%;
 `;
 
 const DoodleDetail = styled.div`
@@ -83,20 +86,20 @@ const IconButton = styled.button`
 `;
 
 // markup
-const DoodleTemplate = ({ data }) => {
-    const { slug, name, addedDate, price, doodle } = data.contentfulDoodle;
-
-    const addToCart = (slug, quantity) => {
+const DoodleTemplate = ({ data, id }) => {
+    const addToCart = (slug) => {
         // TODO: Implement add to cart
-        console.log(slug.toString() + quantity.toString());
         return;
     };
 
     return (
         <Layout>
-            <DoodleWrapper id={slug}>
+            <DoodleWrapper id={id}>
                 <DoodlePreview>
-                    <GatsbyImage image={getImage(doodle)} alt="" />
+                    <DoodlePreviewImage
+                        src={data.stripePrice.product.images[0]}
+                        alt=""
+                    />
                 </DoodlePreview>
                 <DoodleDetail>
                     <div>
@@ -104,11 +107,11 @@ const DoodleTemplate = ({ data }) => {
                             <Icon src={BackIcon} />
                             <IconText>Back</IconText>
                         </IconLink>
-                        <h2>{name}</h2>
-                        <p>{addedDate}</p>
-                        <p>$ {price}.00</p>
+                        <h2>{data.stripePrice.product.name}</h2>
+                        <p>{data.stripePrice.product.description}</p>
+                        <p>RM {data.stripePrice.unit_amount / 100}</p>
                     </div>
-                    <IconButton onClick={() => addToCart(slug, 20)}>
+                    <IconButton onClick={() => addToCart(id, 1)}>
                         <IconText>Add To Cart</IconText>
                         <Icon src={CartIcon} />
                     </IconButton>
@@ -122,14 +125,15 @@ export default DoodleTemplate;
 
 // query
 export const query = graphql`
-    query ($slug: String) {
-        contentfulDoodle(slug: { eq: $slug }) {
-            slug
-            name
-            addedDate
-            price
-            doodle {
-                gatsbyImageData
+    query ($id: String) {
+        stripePrice(product: { id: { eq: $id } }) {
+            unit_amount
+            product {
+                id
+                name
+                description
+                images
+                active
             }
         }
     }

@@ -1,26 +1,25 @@
+require("dotenv").config({
+    path: `.env.${process.env.NODE_ENV}`,
+});
 module.exports = {
     siteMetadata: {
         title: "doodly",
+        description: "Get some doodles here!",
+        url: "https://marshmellochoco.github.io/doodly",
+        image: "/src/images/icon.png",
+        twitterUsername: "@marshchoco01",
     },
     plugins: [
-        {
-            resolve: "gatsby-source-contentful",
-            options: {
-                accessToken: "vrsByWI23wo8tBOESv5YGdpEuDRpLZLMO60dLch9CN8",
-                spaceId: "e07ev7fdcztb",
-            },
-        },
         "gatsby-plugin-emotion",
         "gatsby-plugin-react-helmet",
         {
             resolve: "gatsby-plugin-manifest",
             options: {
                 icon: "src/images/icon.png",
+                name: "doodly",
+                start_url: "/",
             },
         },
-        `gatsby-plugin-image`,
-        "gatsby-plugin-sharp",
-        "gatsby-transformer-sharp",
         {
             resolve: "gatsby-source-filesystem",
             options: {
@@ -29,5 +28,14 @@ module.exports = {
             },
             __key: "images",
         },
+        {
+            resolve: `gatsby-source-stripe`,
+            options: {
+                objects: ["Price"],
+                secretKey: process.env.STRIPE_SECRET_KEY,
+                downloadFiles: false,
+            },
+        },
+        `gatsby-plugin-offline`,
     ],
 };

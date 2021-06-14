@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
+import { loadStripe } from "@stripe/stripe-js";
 import Layout from "../components/layout";
 
 import { graphql, Link } from "gatsby";
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 const Header = styled.h1`
     text-align: center;
@@ -31,7 +31,7 @@ const DoodleLink = styled((props) => <Link {...props} />)`
     }
 `;
 
-const DoodleImage = styled((props) => <GatsbyImage {...props} />)`
+const DoodleImage = styled.img`
     height: auto;
     width: 5rem;
     margin: 0 1rem;
@@ -47,12 +47,58 @@ const RemoveButton = styled.button`
     }
 `;
 
+const CheckoutContainer = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+`;
+
+const CheckoutButton = styled.button`
+    background-color: mintcream;
+    color: black;
+    border: 1px solid gainsboro;
+    min-width: 50%;
+    text-align: center;
+    cursor: pointer;
+    padding: 1rem;
+    &:hover {
+        background-color: #d2d3dd;
+    }
+`;
+
 // markup
 const Cart = ({ data }) => {
+    const [loading, setLoading] = useState(false);
+
     const removeCart = (slug) => {
         // TODO: Implement remove from cart
-        console.log(slug);
         return;
+    };
+
+    let stripePromise;
+    const getStripe = () => {
+        if (!stripePromise) {
+            stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
+        }
+        return stripePromise;
+    };
+
+    const redirectToCheckout = async (event) => {
+        event.preventDefault();
+        setLoading(true);
+        const stripe = await getStripe();
+        const { error } = await stripe.redirectToCheckout({
+            mode: "payment",
+            lineItems: [
+                { price: "price_1J2IBbEY376eQXxtwXv6hMzX", quantity: 1 },
+            ],
+            successUrl: `http://localhost:8000/page-2/`,
+            cancelUrl: `http://localhost:8000/`,
+        });
+        if (error) {
+            console.warn("Error:", error);
+            setLoading(false);
+        }
     };
 
     return (
@@ -71,18 +117,18 @@ const Cart = ({ data }) => {
                 <tbody>
                     <tr>
                         <CartCell>
-                            <DoodleLink to="/">
+                            <DoodleLink
+                                to={`/doodle/${data.stripePrice.product.id}`}
+                            >
                                 <DoodleImage
-                                    image={getImage(
-                                        data.contentfulDoodle.doodle
-                                    )}
+                                    src={data.stripePrice.product.images[0]}
                                     alt=""
                                 />
-                                Img Doodle
+                                {data.stripePrice.product.name}
                             </DoodleLink>
                         </CartCell>
                         <CartCell>2</CartCell>
-                        <CartCell>$ 200.00</CartCell>
+                        <CartCell>RM {data.stripePrice.unit_amount}</CartCell>
                         <CartCell>
                             <RemoveButton>x</RemoveButton>
                         </CartCell>
@@ -91,24 +137,25 @@ const Cart = ({ data }) => {
                         <CartCell>
                             <DoodleLink to="/">
                                 <DoodleImage
-                                    image={getImage(
-                                        data.contentfulDoodle.doodle
-                                    )}
+                                    src={data.stripePrice.product.images[0]}
                                     alt=""
                                 />
-                                Img Doodle
+                                {data.stripePrice.product.name}
                             </DoodleLink>
                         </CartCell>
                         <CartCell>2</CartCell>
-                        <CartCell>$ 200.00</CartCell>
+                        <CartCell>RM {data.stripePrice.unit_amount}</CartCell>
                         <CartCell>
-                            <RemoveButton onClick={() => removeCart("hello")}>
-                                x
-                            </RemoveButton>
+                            <RemoveButton>x</RemoveButton>
                         </CartCell>
-                    </tr>
+                    </tr>{" "}
                 </tbody>
             </CartTable>
+            <CheckoutContainer>
+                <CheckoutButton disabled={loading} onClick={redirectToCheckout}>
+                    Checkout
+                </CheckoutButton>
+            </CheckoutContainer>
         </Layout>
     );
 };
@@ -116,10 +163,15 @@ const Cart = ({ data }) => {
 export default Cart;
 
 export const query = graphql`
-    query ($slug: String) {
-        contentfulDoodle(slug: { eq: $slug }) {
-            doodle {
-                gatsbyImageData
+    query {
+        stripePrice(product: { id: { eq: "prod_Jfdo3lqy0qI5Kd" } }) {
+            unit_amount
+            product {
+                id
+                name
+                description
+                images
+                active
             }
         }
     }

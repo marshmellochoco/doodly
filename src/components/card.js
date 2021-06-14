@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Link } from "gatsby";
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 // styles
 const CardWrapper = styled((props) => <Link {...props} />)`
@@ -15,7 +14,7 @@ const CardWrapper = styled((props) => <Link {...props} />)`
     }
 `;
 
-const CardImage = styled((props) => <GatsbyImage {...props} />)`
+const CardImage = styled.img`
     border-bottom: 1px solid rgb(245, 243, 255);
     height: 18rem;
     background-color: white;
@@ -47,12 +46,12 @@ const CardFooter = styled.p`
 // markup
 const Card = ({ node }) => {
     return (
-        <CardWrapper to={"/doodle/" + node.slug}>
-            <CardImage image={getImage(node.doodle)} alt={node.slug} />
+        <CardWrapper to={"/doodle/" + node.product.id}>
+            <CardImage src={node.product.images} alt={node.product.name} />
             <CardDetail>
-                <CardTitle>{node.name}</CardTitle>
-                <CardSub>{node.addedDate}</CardSub>
-                <CardFooter>$ {node.price}.00</CardFooter>
+                <CardTitle>{node.product.name}</CardTitle>
+                <CardSub>{node.product.description}</CardSub>
+                <CardFooter>RM {node.unit_amount / 100}</CardFooter>
             </CardDetail>
         </CardWrapper>
     );

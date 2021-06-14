@@ -20,15 +20,15 @@ const CardItems = styled.div`
 
 // markup
 const IndexPage = ({ data }) => {
-    const node = data.allContentfulDoodle.nodes;
+    const node = data.allStripePrice.nodes;
 
     return (
         <Layout>
             <CardItems>
-                {[0, 1, 2, 3, 4, 5, 6, 7].map((elem) => {
-                    return <Card node={node[0]} key={elem} />;
+                {node.map((n) => {
+                    return <Card node={n} key={n.id} />;
                 })}
-            </CardItems>{" "}
+            </CardItems>
         </Layout>
     );
 };
@@ -38,14 +38,15 @@ export default IndexPage;
 // query
 export const query = graphql`
     query {
-        allContentfulDoodle {
+        allStripePrice {
             nodes {
-                slug
-                name
-                addedDate
-                price
-                doodle {
-                    gatsbyImageData
+                unit_amount
+                product {
+                    id
+                    name
+                    description
+                    images
+                    active
                 }
             }
         }
