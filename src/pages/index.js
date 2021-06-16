@@ -26,7 +26,7 @@ const IndexPage = ({ data }) => {
         <Layout>
             <CardItems>
                 {node.map((n) => {
-                    return <Card node={n} key={n.id} />;
+                    return <Card node={n} key={n.product.id} />;
                 })}
             </CardItems>
         </Layout>

@@ -1,10 +1,11 @@
 import { graphql, Link } from "gatsby";
-import React from "react";
+import React, { useContext } from "react";
 import styled from "@emotion/styled";
 
 import BackIcon from "../images/arrow-left.svg";
 import CartIcon from "../images/cart.svg";
 import Layout from "../components/layout";
+import { CartDispatchContext } from "../components/cartProvider";
 
 // styles
 const DoodleWrapper = styled.div`
@@ -87,8 +88,14 @@ const IconButton = styled.button`
 
 // markup
 const DoodleTemplate = ({ data, id }) => {
-    const addToCart = (slug) => {
-        // TODO: Implement add to cart
+    const dispatch = useContext(CartDispatchContext);
+
+    const addToCart = (priceid, id, image, name, quantity, price) => {
+        // TODO: Pop up to show item is added to cart
+        dispatch({
+            type: "ADD_ITEM",
+            item: { priceid, id, image, name, quantity, price },
+        });
         return;
     };
 
@@ -111,7 +118,18 @@ const DoodleTemplate = ({ data, id }) => {
                         <p>{data.stripePrice.product.description}</p>
                         <p>RM {data.stripePrice.unit_amount / 100}</p>
                     </div>
-                    <IconButton onClick={() => addToCart(id, 1)}>
+                    <IconButton
+                        onClick={() =>
+                            addToCart(
+                                data.stripePrice.id,
+                                data.stripePrice.product.id,
+                                data.stripePrice.product.images[0],
+                                data.stripePrice.product.name,
+                                1,
+                                data.stripePrice.unit_amount
+                            )
+                        }
+                    >
                         <IconText>Add To Cart</IconText>
                         <Icon src={CartIcon} />
                     </IconButton>
@@ -127,6 +145,7 @@ export default DoodleTemplate;
 export const query = graphql`
     query ($id: String) {
         stripePrice(product: { id: { eq: $id } }) {
+            id
             unit_amount
             product {
                 id

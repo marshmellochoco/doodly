@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import Navbar from "./navbar";
 import Seo from "./seo";
+import CartProvider from "./cartProvider";
 
 // styles
 const Content = styled.div`
@@ -12,13 +13,18 @@ const Content = styled.div`
 
 // markup
 const Layout = ({ children }) => {
+    const [cart, setCart] = useState([]);
     return (
-        <main>
-            <title>Home Page</title>
-            <Seo />
-            <Navbar />
-            <Content>{children}</Content>
-        </main>
+        <CartProvider>
+            <main>
+                <title>Home Page</title>
+                <Seo />
+                <Navbar />
+                <Content cart={cart} setCart={setCart}>
+                    {children}
+                </Content>
+            </main>
+        </CartProvider>
     );
 };
 
