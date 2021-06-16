@@ -103,8 +103,8 @@ const Cart = ({ data }) => {
             lineItems: context.cart.map((item) => {
                 return { price: item.priceid, quantity: item.quantity };
             }),
-            successUrl: `http://localhost:8000/success/`,
-            cancelUrl: `http://localhost:8000/cart/`,
+            successUrl: `https://marshmellochoco.github.io/doodly/success/`,
+            cancelUrl: `https://marshmellochoco.github.io/doodly/cart/`,
         });
         if (error) {
             console.warn("Error:", error);
@@ -116,7 +116,7 @@ const Cart = ({ data }) => {
     return (
         <Layout>
             <Header>Your Cart</Header>
-            {context.cart.length > 0 ? (
+            {context && context.cart.length > 0 ? (
                 <>
                     <CartTable>
                         <thead>
