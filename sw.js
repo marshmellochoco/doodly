@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-ffa69be6db5124aca334.js"
+    "url": "webpack-runtime-d09a6e42711b6a9c9744.js"
   },
   {
     "url": "framework-b7f844256f24d1c1de09.js"
@@ -36,21 +36,29 @@ self.__precacheManifest = [
     "url": "styles.77bb34294ea88deedce7.css"
   },
   {
-    "url": "app-f2985051223e36ccef03.js"
+    "url": "app-19e7a5f4b40c9c5d5e4e.js"
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "5f1b744183f4a32955a260dd02a47982"
+    "revision": "5a12612c2e51c904223f4c39d6de9a6f"
   },
   {
     "url": "component---cache-caches-gatsby-plugin-offline-app-shell-js-d82e7fea01b01d65fb4a.js"
+  },
+  {
+    "url": "page-data/offline-plugin-app-shell-fallback/page-data.json",
+    "revision": "f6081b83111aea4128c98944b7fafccc"
+  },
+  {
+    "url": "page-data/app-data.json",
+    "revision": "8cb7f3b77a54967ee238ec28c8857a60"
   },
   {
     "url": "polyfill-c8219ea928e799bab005.js"
   },
   {
     "url": "manifest.webmanifest",
-    "revision": "4a75e5335fe6308074189454cc3effb3"
+    "revision": "d45eb5dfdb6d04d75e3792bb696c2979"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
@@ -137,12 +145,12 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   lastNavigationRequest = event.request.url
 
   let { pathname } = new URL(event.request.url)
-  pathname = pathname.replace(new RegExp(`^`), ``)
+  pathname = pathname.replace(new RegExp(`^/doodly`), ``)
 
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/app-f2985051223e36ccef03.js`))) {
+  if (!resources || !(await caches.match(`/doodly/app-19e7a5f4b40c9c5d5e4e.js`))) {
     return await fetch(event.request)
   }
 
@@ -155,7 +163,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
     }
   }
 
-  const offlineShell = `/offline-plugin-app-shell-fallback/index.html`
+  const offlineShell = `/doodly/offline-plugin-app-shell-fallback/index.html`
   const offlineShellWithKey = workbox.precaching.getCacheKeyForURL(offlineShell)
   return await caches.match(offlineShellWithKey)
 })
