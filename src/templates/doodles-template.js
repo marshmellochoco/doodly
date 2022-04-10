@@ -1,22 +1,22 @@
-import { graphql, Link } from "gatsby";
-import React, { useContext } from "react";
-import styled from "@emotion/styled";
+import { graphql, Link } from 'gatsby';
+import React, { useContext } from 'react';
+import styled from '@emotion/styled';
 
-import BackIcon from "../images/arrow-left.svg";
-import CartIcon from "../images/cart.svg";
-import Layout from "../components/layout";
-import { CartDispatchContext } from "../components/cartProvider";
+import BackIcon from '../images/arrow-left.svg';
+import CartIcon from '../images/cart.svg';
+import Layout from '../components/layout';
+import { CartDispatchContext } from '../components/cartProvider';
 
 // styles
 const DoodleWrapper = styled.div`
-    max-width: 72rem;
-    width: 91.66667%;
+    max-width: 1024px;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
     align-items: stretch;
     justify-content: center;
     @media (max-width: 768px) {
+        max-width: 375px;
         align-items: center;
         flex-direction: column;
     }
@@ -25,6 +25,15 @@ const DoodleWrapper = styled.div`
 const DoodlePreview = styled.div`
     width: 50%;
     max-width: 28rem;
+    border: 2px solid;
+    border-image-slice: 1;
+    border-width: 2px;
+    border-image-source: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(252, 227, 255, 1) 70%,
+        rgba(162, 239, 255, 1) 100%
+    );
     @media (max-width: 768px) {
         width: 100%;
     }
@@ -39,7 +48,7 @@ const DoodleDetail = styled.div`
     width: 50%;
     max-width: 20rem;
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     flex-direction: column;
     @media (max-width: 768px) {
         width: 100%;
@@ -47,18 +56,22 @@ const DoodleDetail = styled.div`
     }
 `;
 
+const DoodleDetailUpper = styled.div`
+    min-height: 250px;
+`;
+
 const IconLink = styled((props) => <Link {...props} />)`
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    border: 1px solid gainsboro;
+    border: 1px solid grey;
     width: 100%;
     text-align: center;
     color: black;
     text-decoration: none;
     &:hover {
-        background-color: #d2d3dd;
+        box-shadow: 2px 6px 6px 4px #f5f3ff;
     }
 `;
 
@@ -71,9 +84,9 @@ const IconText = styled.p`
 `;
 
 const IconButton = styled.button`
-    background-color: mintcream;
+    border: 0;
+    background-color: #a9ffd4;
     color: black;
-    border: 1px solid gainsboro;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -82,7 +95,7 @@ const IconButton = styled.button`
     text-align: center;
     cursor: pointer;
     &:hover {
-        background-color: #d2d3dd;
+        box-shadow: 2px 6px 6px 4px #f5f3ff;
     }
 `;
 
@@ -93,7 +106,7 @@ const DoodleTemplate = ({ data, id }) => {
     const addToCart = (priceid, id, image, name, quantity, price) => {
         // TODO: Pop up to show item is added to cart
         dispatch({
-            type: "ADD_ITEM",
+            type: 'ADD_ITEM',
             item: { priceid, id, image, name, quantity, price },
         });
         return;
@@ -105,19 +118,21 @@ const DoodleTemplate = ({ data, id }) => {
                 <DoodlePreview>
                     <DoodlePreviewImage
                         src={data.stripePrice.product.images[0]}
-                        alt=""
+                        alt=''
                     />
                 </DoodlePreview>
                 <DoodleDetail>
-                    <div>
-                        <IconLink to="/">
+                    <DoodleDetailUpper>
+                        <IconLink to='/'>
                             <Icon src={BackIcon} />
                             <IconText>Back</IconText>
                         </IconLink>
                         <h2>{data.stripePrice.product.name}</h2>
                         <p>{data.stripePrice.product.description}</p>
-                        <p>RM {data.stripePrice.unit_amount / 100}</p>
-                    </div>
+                        <p>
+                            RM {(data.stripePrice.unit_amount / 100).toFixed(2)}
+                        </p>
+                    </DoodleDetailUpper>
                     <IconButton
                         onClick={() =>
                             addToCart(

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export const CartStateContext = React.createContext();
 export const CartDispatchContext = React.createContext();
@@ -9,12 +9,12 @@ const initState = {
 
 function reducer(state, action) {
     switch (action.type) {
-        case "SET_CART":
+        case 'SET_CART':
             return {
                 ...state,
                 cart: action.cart,
             };
-        case "ADD_ITEM":
+        case 'ADD_ITEM':
             let found;
             state.cart.forEach((item) => {
                 if (item.id === action.item.id) found = true;
@@ -25,16 +25,11 @@ function reducer(state, action) {
                       ...state,
                       cart: [...state.cart, action.item],
                   };
-        case "REMOVE_ITEM":
-            let cart = state.cart;
-            state.cart.forEach((item) => {
-                if (item.id === action.id) {
-                    cart.splice(cart.indexOf(item.id), 1);
-                }
-            });
+        case 'REMOVE_ITEM':
+            let newCart = state.cart.filter((item) => item.id !== action.id);
             return {
                 ...state,
-                cart: [...cart],
+                cart: [...newCart],
             };
 
         default:

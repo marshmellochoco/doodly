@@ -6,7 +6,7 @@ module.exports = {
     siteMetadata: {
         title: "doodly",
         description: "Get some doodles here!",
-        url: "https://marshmellochoco.github.io/doodly",
+        url: process.env.URL,
         image: "/src/images/icon.png",
         twitterUsername: "@marshchoco01",
     },

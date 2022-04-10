@@ -1,21 +1,21 @@
-import React from "react";
-import styled from "@emotion/styled";
-import { Link } from "gatsby";
+import React from 'react';
+import styled from '@emotion/styled';
+import { Link } from 'gatsby';
 
 // styles
 const CardWrapper = styled((props) => <Link {...props} />)`
     width: 18rem;
     margin: auto;
-    box-shadow: 2px 4px 4px 0px rgb(245, 243, 255);
+    box-shadow: 2px 4px 4px 0px #f5f3ff;
     text-decoration: none;
     color: black;
     &:hover {
-        box-shadow: 2px 6px 6px 4px rgb(245, 243, 255);
+        box-shadow: 2px 6px 6px 4px #f5f3ff;
     }
 `;
 
 const CardImage = styled.img`
-    border-bottom: 1px solid rgb(245, 243, 255);
+    border-bottom: 1px solid #f5f3ff;
     height: 18rem;
     background-color: white;
 `;
@@ -46,12 +46,14 @@ const CardFooter = styled.p`
 // markup
 const Card = ({ node }) => {
     return (
-        <CardWrapper to={"/doodle/" + node.product.id}>
+        <CardWrapper to={'/doodle/' + node.product.id}>
             <CardImage src={node.product.images} alt={node.product.name} />
             <CardDetail>
                 <CardTitle>{node.product.name}</CardTitle>
                 <CardSub>{node.product.description}</CardSub>
-                <CardFooter>RM {node.unit_amount / 100}</CardFooter>
+                <CardFooter>
+                    RM {(node.unit_amount / 100).toFixed(2)}
+                </CardFooter>
             </CardDetail>
         </CardWrapper>
     );

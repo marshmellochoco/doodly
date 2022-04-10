@@ -1,28 +1,27 @@
-import React, { useState } from "react";
-import styled from "@emotion/styled";
-import Navbar from "./navbar";
-import Seo from "./seo";
-import CartProvider from "./cartProvider";
+import React, { useContext } from 'react';
+import styled from '@emotion/styled';
+import Navbar from './navbar';
+import Seo from './seo';
+import CartProvider, { CartStateContext } from './cartProvider';
 
 // styles
 const Content = styled.div`
-    max-width: 72rem;
+    max-width: 1024px;
     margin: 0 auto;
     padding: 3rem 0;
 `;
 
 // markup
 const Layout = ({ children }) => {
-    const [cart, setCart] = useState([]);
+    const cartContext = useContext(CartStateContext);
+
     return (
         <CartProvider>
             <main>
                 <title>Home Page</title>
                 <Seo />
-                <Navbar />
-                <Content cart={cart} setCart={setCart}>
-                    {children}
-                </Content>
+                <Navbar props={{ count: cartContext.cart.length }} />
+                <Content>{children}</Content>
             </main>
         </CartProvider>
     );
