@@ -20,7 +20,11 @@ const Layout = ({ children }) => {
             <main>
                 <title>Home Page</title>
                 <Seo />
-                <Navbar props={{ count: cartContext.cart.length }} />
+                <Navbar
+                    props={{
+                        count: cartContext ? cartContext.cart.length : 0,
+                    }}
+                />
                 <Content>{children}</Content>
             </main>
         </CartProvider>
