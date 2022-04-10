@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-doodles-template-js",
+    "path": "/doodle/prod_LU0BG9kVFJgilw",
+    "result": {"data":{"stripePrice":{"id":"price_1Kn2AqDsifshUIMOD4eogCwq","unit_amount":1200,"product":{"id":"prod_LU0BG9kVFJgilw","name":"marshmallow white","description":"just a white background marshmallow","images":["https://files.stripe.com/links/MDB8YWNjdF8xS24xeTNEc2lmc2hVSU1PfGZsX3Rlc3RfSTluS2RvcEJGb2ZEZHh6aHRYdTk5UVps00CHQUwUx4"],"active":true}}},"pageContext":{"id":"prod_LU0BG9kVFJgilw"}},
+    "staticQueryHashes": ["2197804646"]}

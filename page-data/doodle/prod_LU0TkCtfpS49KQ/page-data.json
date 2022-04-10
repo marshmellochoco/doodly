@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-doodles-template-js",
+    "path": "/doodle/prod_LU0TkCtfpS49KQ",
+    "result": {"data":{"stripePrice":{"id":"price_1Kn2SXDsifshUIMOqkMhntKN","unit_amount":1300,"product":{"id":"prod_LU0TkCtfpS49KQ","name":"marshmallow with shadow","description":"just a white background marshmallow with a shadow","images":["https://files.stripe.com/links/MDB8YWNjdF8xS24xeTNEc2lmc2hVSU1PfGZsX3Rlc3Rfc0N1dzR3NU1jRHlITjB4eEFhN3haaVMz00VaFUxLx8"],"active":true}}},"pageContext":{"id":"prod_LU0TkCtfpS49KQ"}},
+    "staticQueryHashes": ["2197804646"]}

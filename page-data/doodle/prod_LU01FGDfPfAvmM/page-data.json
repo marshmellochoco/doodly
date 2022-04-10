@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-doodles-template-js",
+    "path": "/doodle/prod_LU01FGDfPfAvmM",
+    "result": {"data":{"stripePrice":{"id":"price_1Kn21vDsifshUIMO9I21d5Bu","unit_amount":1250,"product":{"id":"prod_LU01FGDfPfAvmM","name":"marshmallow mint","description":"just a mint background marshmallow","images":["https://files.stripe.com/links/MDB8YWNjdF8xS24xeTNEc2lmc2hVSU1PfGZsX3Rlc3RfVThBc0g3RWN0RlBZRU52TUhQbWdJOHJ500vL0D04GY"],"active":true}}},"pageContext":{"id":"prod_LU01FGDfPfAvmM"}},
+    "staticQueryHashes": ["2197804646"]}

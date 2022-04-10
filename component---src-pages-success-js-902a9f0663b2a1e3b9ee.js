@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkdoodly=self.webpackChunkdoodly||[]).push([[866],{9658:function(o,e,r){r.r(e);var t=r(6771),l=(r(7294),r(5444)),n=r(7408),u=r(3431);var d=(0,t.Z)((function(o){return(0,u.tZ)(l.Link,o)}),{target:"ema8xiq0"})({name:"q7a07v",styles:"color:black;&:hover{color:grey;}"});e.default=function(){return(0,u.tZ)(n.Z,null,(0,u.tZ)("h2",null,"Thanks for your order, you will get your doodle soon! (just kidding)"),(0,u.tZ)(d,{to:"/"},"Browse more doodles"))}}}]);
+//# sourceMappingURL=component---src-pages-success-js-902a9f0663b2a1e3b9ee.js.map

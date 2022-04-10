@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-doodles-template-js",
+    "path": "/doodle/prod_LU02PKtxJ3ISTM",
+    "result": {"data":{"stripePrice":{"id":"price_1Kn22JDsifshUIMOHlFlCWmo","unit_amount":1250,"product":{"id":"prod_LU02PKtxJ3ISTM","name":"marshmallow pink","description":"just a pink background marshmallow","images":["https://files.stripe.com/links/MDB8YWNjdF8xS24xeTNEc2lmc2hVSU1PfGZsX3Rlc3RfNllGWjZZdzF1aGNTVUQyWTFYandoOFFx00eiY0HaF0"],"active":true}}},"pageContext":{"id":"prod_LU02PKtxJ3ISTM"}},
+    "staticQueryHashes": ["2197804646"]}

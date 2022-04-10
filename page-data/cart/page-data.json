@@ -1,1 +1,5 @@
-{"componentChunkName":"component---src-pages-cart-js","path":"/cart/","result":{"data":{"stripePrice":{"id":"price_1J2IWuEY376eQXxttsLhb4ZS","unit_amount":3500,"product":{"id":"prod_Jfdo3lqy0qI5Kd","name":"cooler marshmallow","description":"cooler marshmallow","images":["https://files.stripe.com/links/MDB8YWNjdF8xSjJIajBFWTM3NmVRWHh0fGZsX3Rlc3RfcWJ0eldtQ1E3WGN2azlrTGJuSHVoa3VU00wd5tJZH8"],"active":true}}},"pageContext":{}},"staticQueryHashes":["2197804646"]}
+{
+    "componentChunkName": "component---src-pages-cart-js",
+    "path": "/cart/",
+    "result": {"data":{"stripePrice":null},"pageContext":{}},
+    "staticQueryHashes": ["2197804646"]}
